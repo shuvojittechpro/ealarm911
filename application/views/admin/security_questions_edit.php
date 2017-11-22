@@ -23,7 +23,10 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2 id="notify_message">Update <small>Sequrity Questions</small></h2>
-                    
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="" href="<?php echo base_url('admin/security_questions')?>"><i class="fa fa-list-ol"></i>Listing</a>
+                      </li>
+                    </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">

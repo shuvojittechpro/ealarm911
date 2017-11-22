@@ -4,6 +4,8 @@
 <script src="<?php echo $this->config->item('vendor_url')?>bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="<?php echo $this->config->item('build_url')?>js/custom.min.js"></script>
+<!-- jquery.inputmask -->
+<script src="<?php echo $this->config->item('vendor_url')?>jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
 
 <!-- Validation Engine -->
 <script src="<?php echo $this->config->item('plugins_url')?>validation-engine/js/languages/jquery.validationEngine-en.js"></script>

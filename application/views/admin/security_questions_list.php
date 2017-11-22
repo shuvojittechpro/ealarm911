@@ -81,7 +81,8 @@
                    error: function(){
                      $("#employee_grid_processing").css("display","none");
                    }
-                 }
+                 },
+                 "columnDefs": [ { orderable: false, targets: [4] } ]
             } );
         } );
 

@@ -57,8 +57,8 @@ class Model_security_questions extends CI_Model {
                             $alldata['question'],
                             $status_val.'<a class="btn btn_icon-xs" title="Toggle Status" alt="Toggle Status" onClick="change_security_question_status('.$alldata['id'].',this)"><i class="fa fa-exchange" aria-hidden="true"></i></a>',
                             date('d-m-Y',$alldata['postedTime']),
-                            '<a class="btn btn-sm btn-default btn_icon-success" href="'.base_url('admin/security_questions/edit/'.$alldata['id']).'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                            <a class="btn btn btn-sm btn-default btn_icon-danger" href="'.base_url('admin/security_questions/delete/'.$alldata['id']).'"><i class="fa fa-trash" aria-hidden="true"></i></a>'
+                            '<a class="btn btn_icon-xs btn_icon-success" href="'.base_url('admin/security_questions/edit/'.$alldata['id']).'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            <a class="btn btn_icon-xs btn_icon-danger" href="'.base_url('admin/security_questions/delete/'.$alldata['id']).'"><i class="fa fa-trash" aria-hidden="true"></i></a>'
             );
             $i++;
         }
