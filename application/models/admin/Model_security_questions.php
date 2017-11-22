@@ -55,10 +55,10 @@ class Model_security_questions extends CI_Model {
             $data[] = array(
                             $i,
                             $alldata['question'],
-                            $status_val.'<a class="btn btn-xs" title="Toggle Status" alt="Toggle Status" onClick="change_security_question_status('.$alldata['id'].',this)"><i class="fa fa-exchange" aria-hidden="true"></i></a>',
+                            $status_val.'<a class="btn btn_icon-xs" title="Toggle Status" alt="Toggle Status" onClick="change_security_question_status('.$alldata['id'].',this)"><i class="fa fa-exchange" aria-hidden="true"></i></a>',
                             date('d-m-Y',$alldata['postedTime']),
-                            '<a class="btn btn-xs btn-success" href="'.base_url('admin/security_questions/edit/'.$alldata['id']).'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                            <a class="btn btn-xs btn-danger" href="'.base_url('admin/security_questions/delete/'.$alldata['id']).'"><i class="fa fa-trash" aria-hidden="true"></i></a>'
+                            '<a class="btn btn-sm btn-default btn_icon-success" href="'.base_url('admin/security_questions/edit/'.$alldata['id']).'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            <a class="btn btn btn-sm btn-default btn_icon-danger" href="'.base_url('admin/security_questions/delete/'.$alldata['id']).'"><i class="fa fa-trash" aria-hidden="true"></i></a>'
             );
             $i++;
         }
@@ -82,13 +82,98 @@ class Model_security_questions extends CI_Model {
                 $question_details = $query_check->result_array()[0];
                 $new_stat = $question_details['status']=='Y'?'N':'Y';
                 $response = $question_details['status']=='Y'?'false':'true';
-                $this->db_master->where(array('id' => $questionID))->update('security_questions',array('status' => $new_stat));
 
-                $result = array('status' => true);
-                $result['response'] = $response;
+                $this->db_master->trans_start();
+                $this->db_master->where(array('id' => $questionID))->update('security_questions',array('status' => $new_stat));
+                $this->db_master->trans_complete();
+
+                if($this->db_master->trans_status()===true){
+                    $result = array('status' => true);
+                    $result['response'] = $response;
+                }
+                else{
+                    throw new Exception("Updatation unsuccessfull");
+                }
             }
             else{
                 throw new Exception("No question found with this id");
+            }
+        }catch(Exception $e){
+            $result = array('status' => false);
+            $result['message'] = $e->getMessage();
+        }
+        return $result;
+    }
+
+    public function add_question($data){
+        try{
+            $this->db_master->trans_start();
+            $this->db_master->insert('security_questions',$data);
+            $this->db_master->trans_complete();
+
+            if($this->db_master->trans_status() === true){
+                $result = array('status' => true);
+                $result['message'] = 'Insertion Successfull';
+            }
+            else{
+                throw new Exception("Error Processing Request");
+            }
+        }catch(Exception $e){
+            $result = array('status' => false);
+            $result['message'] = $e->getMessage();
+        }
+        return $result;
+    }
+    
+    public function update_question($data,$condition){
+        try{
+            $this->db_master->trans_start();
+            $this->db_master->where($condition)->update('security_questions',$data);
+            $this->db_master->trans_complete();
+
+            if($this->db_master->trans_status() === true){
+                $result = array('status' => true);
+                $result['message'] = 'Update Successfull';
+            }
+            else{
+                throw new Exception("Error Processing Request");
+            }
+        }catch(Exception $e){
+            $result = array('status' => false);
+            $result['message'] = $e->getMessage();
+        }
+        return $result;
+    }
+
+    public function get_question($question_id){
+        try{
+            $query = $this->db_slave->select('question')->get_where('security_questions',array('id' => $question_id));
+            if($query->num_rows()>0){
+                $result = array('status' => true);
+                $result['details'] = $query->result_array()[0];
+            }
+            else{
+                throw new Exception("Error Processing Request");
+            }
+        }catch(Exception $e){
+            $result = array('status' => false);
+            $result['message'] = $e->getMessage();
+        }
+        return $result;
+    }
+    
+    public function delete_question($condition){
+        try{
+            $this->db_master->trans_start();
+            $this->db_master->where($condition)->delete('security_questions');
+            $this->db_master->trans_complete();
+
+            if($this->db_master->trans_status() === true){
+                $result = array('status' => true);
+                $result['message'] = 'Deletion Successfull';
+            }
+            else{
+                throw new Exception("Error Processing Request");
             }
         }catch(Exception $e){
             $result = array('status' => false);
