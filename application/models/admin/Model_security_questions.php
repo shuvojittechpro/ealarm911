@@ -18,8 +18,8 @@ class Model_security_questions extends CI_Model {
         $columns = array( 
             0 => 'id',
             1 => 'question',
-            1 => 'status',
-            2 => 'postedTIme'
+            2 => 'status',
+            3 => 'postedTIme'
         );
 
         $where = $sqlTot = $sqlRec = "";

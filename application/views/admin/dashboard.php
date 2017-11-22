@@ -16,14 +16,26 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-          
-
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
               <h1>Welcome to Ealarm 911</h1>
             </div>
 
           </div>
+          <!-- top tiles -->
+          <div class="row tile_count">
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
+              <div class="count">0</div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> Total Collections</span>
+              <div class="count">0</div>
+            </div>
+          </div>
+          <!-- /top tiles -->
+
+          
           <br />
         </div>
         <!-- /page content -->
